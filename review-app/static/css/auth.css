@@ -1,0 +1,94 @@
+/* Authentication Pages Styles */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: var(--spacing-lg);
+}
+
+.auth-card {
+    background: var(--card-bg);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-hover);
+    max-width: 450px;
+    width: 100%;
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-lg);
+}
+
+.auth-form {
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.demo-credentials {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+}
+
+.demo-credentials strong {
+    color: var(--primary-color);
+}
+
+.demo-credentials ul {
+    margin-top: var(--spacing-sm);
+    list-style: none;
+}
+
+.demo-credentials li {
+    padding: var(--spacing-xs) 0;
+}
+
+.password-strength {
+    height: 4px;
+    border-radius: 2px;
+    margin-top: var(--spacing-xs);
+    transition: all 0.3s;
+}
+
+.password-strength.weak {
+    width: 33%;
+    background-color: var(--danger-color);
+}
+
+.password-strength.medium {
+    width: 66%;
+    background-color: var(--warning-color);
+}
+
+.password-strength.strong {
+    width: 100%;
+    background-color: var(--success-color);
+}

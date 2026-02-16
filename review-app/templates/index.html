@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Movie & Game Reviews{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Movie & Game Reviews</h1>
+    <p>Discover what others think about the latest movies and games</p>
+</div>
+
+<div class="filters">
+    <form method="GET" action="{{ url_for('main.index') }}">
+        <label for="category">Category:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="movie" {% if current_category == 'movie' %}selected{% endif %}>Movies</option>
+            <option value="game" {% if current_category == 'game' %}selected{% endif %}>Games</option>
+        </select>
+
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" onchange="this.form.submit()">
+            <option value="">All Ratings</option>
+            <option value="5" {% if current_rating == 5 %}selected{% endif %}>5 Stars</option>
+            <option value="4" {% if current_rating == 4 %}selected{% endif %}>4+ Stars</option>
+            <option value="3" {% if current_rating == 3 %}selected{% endif %}>3+ Stars</option>
+        </select>
+
+        {% if current_category or current_rating %}
+        <a href="{{ url_for('main.index') }}" class="btn-secondary">Clear Filters</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="reviews-grid">
+    {% if reviews %}
+        {% for review in reviews %}
+        <div class="review-card">
+            <div class="review-header">
+                <h3>{{ review.title }}</h3>
+                <span class="category-badge category-{{ review.category }}">{{ review.category }}</span>
+            </div>
+            <div class="review-rating">
+                {{ review.rating|star_rating }}
+                <span class="rating-number">({{ review.rating }}/5)</span>
+            </div>
+            <div class="review-excerpt">
+                {{ review.review_text|truncate_text(150) }}
+            </div>
+            <div class="review-meta">
+                <span class="review-author">by {{ review.username }}</span>
+                <span class="review-date">{{ review.review_date|format_date }}</span>
+            </div>
+            <a href="{{ url_for('reviews.view', review_id=review.id) }}" class="btn-link">Read More →</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <h2>No reviews found</h2>
+            <p>Be the first to post a review!</p>
+            {% if not session.user_id %}
+            <a href="{{ url_for('auth.register') }}" class="btn-primary">Register to Post Review</a>
+            {% else %}
+            <a href="{{ url_for('reviews.create') }}" class="btn-primary">Post Your First Review</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+{% if not session.user_id and reviews %}
+<div class="cta-section">
+    <h3>Want to share your opinion?</h3>
+    <p>Create a free account to post your own reviews!</p>
+    <a href="{{ url_for('auth.register') }}" class="btn-primary">Register Now</a>
+</div>
+{% endif %}
+{% endblock %}
