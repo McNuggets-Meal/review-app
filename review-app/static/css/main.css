@@ -1,25 +1,50 @@
-/* Movie & Game Review PWA - Main Styles */
+/* Movie & Game Review PWA - Nintendo Switch Theme */
 
-/* CSS Variables for Theming */
+/* CSS Variables */
 :root {
-    --primary-color: #007bff;
-    --primary-dark: #0056b3;
-    --secondary-color: #6c757d;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --info-color: #17a2b8;
+    /* Nintendo Switch Palette */
+    --switch-blue: #79d7fd;       /* Left Joy-Con blue */
+    --switch-yellow: #ffe52c;     /* Accent yellow */
+    --switch-red: #d92323;        /* Right Joy-Con red */
+    --switch-gray: #aaaaaa;       /* Console body / background */
 
-    --text-color: #333;
-    --text-light: #6c757d;
-    --border-color: #dee2e6;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
+    /* Derived shades */
+    --switch-blue-dark: #3db8e8;
+    --switch-blue-light: #c4effe;
+    --switch-red-dark: #b01a1a;
+    --switch-yellow-dark: #d4be00;
+    --switch-dark: #1a1a2e;       /* Near-black for text/nav */
+    --switch-dark-2: #2d2d44;     /* Slightly lighter dark */
+    --switch-panel: #c8c8c8;      /* Lighter gray for cards */
+    --switch-panel-dark: #909090; /* Darker panel edge */
 
-    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    --box-shadow-hover: 0 4px 8px rgba(0,0,0,0.15);
+    /* Semantic mappings */
+    --primary-color: var(--switch-blue);
+    --primary-dark: var(--switch-blue-dark);
+    --secondary-color: var(--switch-gray);
+    --success-color: #2ecc71;
+    --danger-color: var(--switch-red);
+    --warning-color: var(--switch-yellow);
+    --info-color: var(--switch-blue);
+
+    --text-color: var(--switch-dark);
+    --text-light: #555566;
+    --text-on-dark: #f0f0f0;
+    --border-color: var(--switch-panel-dark);
+    --bg-color: var(--switch-gray);
+    --card-bg: var(--switch-panel);
+
+    --font-family: 'Nintendo NTR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-weight-bold: 700;
+
+    --border-radius: 12px;
+    --border-radius-pill: 50px;
+    --border-radius-sm: 6px;
+
+    /* Switch-style raised panel shadow */
+    --box-shadow: 0 4px 0 var(--switch-panel-dark), 0 6px 12px rgba(0,0,0,0.25);
+    --box-shadow-hover: 0 6px 0 var(--switch-panel-dark), 0 10px 20px rgba(0,0,0,0.3);
+    --box-shadow-inset: inset 0 2px 6px rgba(0,0,0,0.2);
 
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
@@ -28,7 +53,7 @@
     --spacing-xl: 3rem;
 }
 
-/* Reset & Base Styles */
+/* Reset & Base */
 * {
     margin: 0;
     padding: 0;
@@ -41,6 +66,15 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+    /* Subtle texture reminiscent of the Switch console surface */
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0,0,0,0.03) 2px,
+            rgba(0,0,0,0.03) 4px
+        );
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -58,138 +92,226 @@ main {
     padding: 0 var(--spacing-md);
 }
 
-/* Navigation Bar */
+/* ============================================================
+   NAVIGATION — styled like the Switch Home Menu header bar
+   ============================================================ */
 .navbar {
-    background-color: var(--card-bg);
-    box-shadow: var(--box-shadow);
-    padding: var(--spacing-sm) 0;
+    background: var(--switch-dark);
+    /* Red stripe on left, blue stripe on right — like the Joy-Cons */
+    border-bottom: 4px solid var(--switch-blue);
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Joy-Con colour bars flanking the navbar */
+.navbar::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        var(--switch-red) 0%,
+        var(--switch-red) 50%,
+        var(--switch-blue) 50%,
+        var(--switch-blue) 100%
+    );
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--switch-yellow);
     text-decoration: none;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+    text-transform: uppercase;
+}
+
+.logo:hover {
+    color: #fff;
 }
 
 .nav-links {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     align-items: center;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.3s;
+    color: var(--text-on-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    transition: background 0.2s, color 0.2s;
 }
 
 .nav-links a:hover {
-    color: var(--primary-color);
+    background: rgba(255,255,255,0.1);
+    color: var(--switch-blue);
 }
 
 .username {
-    color: var(--text-light);
-    font-size: 0.9rem;
+    color: var(--switch-yellow);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 2px solid var(--switch-yellow);
+    border-radius: var(--border-radius-pill);
+    padding: 0.2rem 0.75rem;
 }
 
-/* Buttons */
+/* ============================================================
+   BUTTONS — chunky Switch-style press buttons
+   ============================================================ */
 .btn-primary, .btn-secondary, .btn-danger, .btn-link {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
+    padding: 0.55rem 1.25rem;
+    border-radius: var(--border-radius-pill);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     border: none;
     cursor: pointer;
-    transition: all 0.3s;
-    font-size: 1rem;
+    transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
+    position: relative;
+}
+
+/* Press effect */
+.btn-primary:active,
+.btn-secondary:active,
+.btn-danger:active {
+    transform: translateY(2px);
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    color: white;
+    background: var(--switch-blue);
+    color: var(--switch-dark);
+    box-shadow: 0 4px 0 var(--switch-blue-dark), 0 6px 10px rgba(0,0,0,0.2);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 0 var(--switch-blue-dark), 0 8px 14px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    box-shadow: 0 2px 0 var(--switch-blue-dark);
+}
+
+/* The nav "Post Review" / "Register" CTA uses btn-primary  */
+.nav-links .btn-primary {
+    background: var(--switch-red);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--switch-red-dark);
+}
+
+.nav-links .btn-primary:hover {
+    background: var(--switch-red-dark);
+    box-shadow: 0 6px 0 var(--switch-red-dark);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
-    color: white;
+    background: var(--switch-gray);
+    color: var(--switch-dark);
+    box-shadow: 0 4px 0 var(--switch-panel-dark), 0 6px 10px rgba(0,0,0,0.2);
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
 }
 
 .btn-danger {
-    background-color: var(--danger-color);
-    color: white;
+    background: var(--switch-red);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--switch-red-dark), 0 6px 10px rgba(0,0,0,0.2);
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
+    filter: brightness(1.1);
+    transform: translateY(-2px);
 }
 
 .btn-link {
     background: transparent;
-    color: var(--primary-color);
+    color: var(--switch-blue-dark);
     padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm);
+    box-shadow: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
 }
 
 .btn-link:hover {
     text-decoration: underline;
+    color: var(--switch-dark);
 }
 
 .btn-full {
     width: 100%;
+    text-align: center;
 }
 
-/* Alerts / Flash Messages */
+/* ============================================================
+   ALERTS / FLASH MESSAGES
+   ============================================================ */
 .alert {
-    padding: var(--spacing-sm);
-    border-radius: var(--border-radius);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
     margin: var(--spacing-md) 0;
-    border-left: 4px solid;
+    border-left: 5px solid;
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 .alert-success {
-    background-color: #d4edda;
+    background-color: #d4f5e3;
     border-color: var(--success-color);
-    color: #155724;
+    color: #1a6636;
 }
 
 .alert-danger {
-    background-color: #f8d7da;
-    border-color: var(--danger-color);
-    color: #721c24;
+    background-color: #fde0e0;
+    border-color: var(--switch-red);
+    color: var(--switch-red-dark);
 }
 
 .alert-warning {
-    background-color: #fff3cd;
-    border-color: var(--warning-color);
-    color: #856404;
+    background-color: #fff9d4;
+    border-color: var(--switch-yellow-dark);
+    color: #5a4800;
 }
 
 .alert-info {
-    background-color: #d1ecf1;
-    border-color: var(--info-color);
-    color: #0c5460;
+    background-color: var(--switch-blue-light);
+    border-color: var(--switch-blue);
+    color: var(--switch-dark);
 }
 
-/* Page Header */
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
 .page-header {
     text-align: center;
     margin: var(--spacing-xl) 0 var(--spacing-lg);
@@ -197,22 +319,33 @@ main {
 
 .page-header h1 {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    font-weight: 700;
+    color: var(--switch-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    /* Yellow underline accent */
+    text-decoration: underline;
+    text-decoration-color: var(--switch-yellow);
+    text-underline-offset: 6px;
+    text-decoration-thickness: 4px;
     margin-bottom: var(--spacing-xs);
 }
 
 .page-header p {
     color: var(--text-light);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
-/* Filters */
+/* ============================================================
+   FILTERS PANEL — looks like a Switch menu tile
+   ============================================================ */
 .filters {
     background: var(--card-bg);
     padding: var(--spacing-md);
     border-radius: var(--border-radius);
     margin-bottom: var(--spacing-lg);
     box-shadow: var(--box-shadow);
+    border-top: 4px solid var(--switch-blue);
 }
 
 .filters form {
@@ -223,17 +356,32 @@ main {
 }
 
 .filters label {
-    font-weight: 500;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--switch-dark);
 }
 
 .filters select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--switch-gray);
+    color: var(--switch-dark);
+    cursor: pointer;
 }
 
-/* Reviews Grid */
+.filters select:focus {
+    outline: none;
+    border-color: var(--switch-blue);
+}
+
+/* ============================================================
+   REVIEWS GRID
+   ============================================================ */
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -246,11 +394,27 @@ main {
     padding: var(--spacing-md);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeIn 0.4s ease-out;
+    /* Thin coloured left-bar — alternates blue/red via nth-child */
+    border-left: 5px solid var(--switch-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Alternate card accent colours — blue / red / yellow */
+.reviews-grid .review-card:nth-child(3n+1) {
+    border-left-color: var(--switch-blue);
+}
+.reviews-grid .review-card:nth-child(3n+2) {
+    border-left-color: var(--switch-red);
+}
+.reviews-grid .review-card:nth-child(3n+3) {
+    border-left-color: var(--switch-yellow-dark);
 }
 
 .review-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     box-shadow: var(--box-shadow-hover);
 }
 
@@ -262,71 +426,86 @@ main {
 }
 
 .review-header h3 {
-    font-size: 1.3rem;
-    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--switch-dark);
     flex: 1;
+    letter-spacing: 0.02em;
 }
 
+/* Category Badges — Joy-Con themed */
 .category-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
     white-space: nowrap;
-    margin-left: var(--spacing-sm);
+    margin-left: var(--spacing-xs);
 }
 
 .category-movie {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background-color: var(--switch-red);
+    color: #fff;
 }
 
 .category-game {
-    background-color: #e8f5e9;
-    color: #388e3c;
+    background-color: var(--switch-blue);
+    color: var(--switch-dark);
 }
 
+/* Star Rating */
 .review-rating {
-    color: #ffc107;
+    color: var(--switch-yellow-dark);
     font-size: 1.2rem;
     margin-bottom: var(--spacing-sm);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 .rating-number {
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-left: var(--spacing-xs);
+    font-weight: 600;
 }
 
 .review-excerpt {
     color: var(--text-color);
     margin-bottom: var(--spacing-sm);
-    line-height: 1.5;
+    line-height: 1.55;
+    font-size: 0.95rem;
 }
 
 .review-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-light);
     margin-top: var(--spacing-sm);
     padding-top: var(--spacing-sm);
-    border-top: 1px solid var(--border-color);
+    border-top: 2px solid var(--border-color);
+    font-weight: 600;
+    letter-spacing: 0.03em;
 }
 
-/* Empty State */
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
 .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     background: var(--card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    border-top: 4px solid var(--switch-gray);
 }
 
 .empty-state h2 {
-    color: var(--text-color);
+    color: var(--switch-dark);
     margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+    text-transform: uppercase;
 }
 
 .empty-state p {
@@ -334,37 +513,68 @@ main {
     margin-bottom: var(--spacing-md);
 }
 
-/* CTA Section */
+/* ============================================================
+   CTA SECTION — Joy-Con gradient banner
+   ============================================================ */
 .cta-section {
     text-align: center;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
+    /* Horizontal gradient: red left → blue right, like the Joy-Cons flanking a console */
+    background: linear-gradient(135deg, var(--switch-red) 0%, var(--switch-dark) 50%, var(--switch-blue) 100%);
+    color: #fff;
     padding: var(--spacing-xl);
     border-radius: var(--border-radius);
     margin-top: var(--spacing-xl);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Yellow highlight stripe at the top */
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--switch-yellow);
 }
 
 .cta-section h3 {
     margin-bottom: var(--spacing-sm);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-shadow: 1px 2px 0 rgba(0,0,0,0.3);
 }
 
 .cta-section .btn-primary {
-    background-color: white;
-    color: var(--primary-color);
+    background-color: var(--switch-yellow);
+    color: var(--switch-dark);
+    box-shadow: 0 4px 0 var(--switch-yellow-dark);
 }
 
 .cta-section .btn-primary:hover {
-    background-color: var(--bg-color);
+    filter: brightness(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--switch-yellow-dark);
 }
 
-/* Forms */
+/* ============================================================
+   FORMS
+   ============================================================ */
 .form-group {
     margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
     display: block;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--switch-dark);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -373,25 +583,30 @@ main {
 .form-group select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     font-family: var(--font-family);
+    background: #f5f5f5;
+    color: var(--switch-dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    border-color: var(--switch-blue);
+    box-shadow: 0 0 0 3px rgba(121, 215, 253, 0.35);
+    background: #fff;
 }
 
 .form-hint {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-light);
     margin-top: var(--spacing-xs);
+    font-style: italic;
 }
 
 .form-actions {
@@ -410,14 +625,19 @@ main {
     display: flex;
     align-items: center;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .radio-option input {
     margin-right: var(--spacing-xs);
     width: auto;
+    accent-color: var(--switch-blue);
 }
 
-/* Star Rating */
+/* ============================================================
+   STAR RATING INPUT
+   ============================================================ */
 .star-rating-input {
     font-size: 2rem;
     cursor: pointer;
@@ -425,31 +645,56 @@ main {
 }
 
 .star-rating-input .star {
-    color: #ddd;
-    transition: color 0.2s;
+    color: #ccc;
+    transition: color 0.15s;
 }
 
 .star-rating-input .star.active,
 .star-rating-input .star:hover {
-    color: #ffc107;
+    color: var(--switch-yellow-dark);
 }
 
 /* Character Counter */
 .character-count {
     text-align: right;
-}
-
-/* Footer */
-footer {
-    background-color: var(--card-bg);
-    border-top: 1px solid var(--border-color);
-    padding: var(--spacing-lg) 0;
-    margin-top: auto;
-    text-align: center;
+    font-size: 0.8rem;
     color: var(--text-light);
+    font-weight: 600;
 }
 
-/* Error Page */
+/* ============================================================
+   FOOTER — Switch dock panel style
+   ============================================================ */
+footer {
+    background: var(--switch-dark);
+    border-top: 4px solid var(--switch-blue);
+    /* Mirror navbar red/blue top stripes on bottom */
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    color: var(--text-on-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+footer::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        var(--switch-red) 0%,
+        var(--switch-red) 50%,
+        var(--switch-blue) 50%,
+        var(--switch-blue) 100%
+    );
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ============================================================
+   ERROR PAGES
+   ============================================================ */
 .error-page {
     text-align: center;
     padding: var(--spacing-xl);
@@ -457,24 +702,37 @@ footer {
 
 .error-page h1 {
     font-size: 6rem;
-    color: var(--primary-color);
+    font-weight: 700;
+    /* Big red error code */
+    color: var(--switch-red);
+    text-shadow: 4px 4px 0 var(--switch-red-dark);
     margin-bottom: var(--spacing-sm);
 }
 
 .error-page h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    color: var(--switch-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     margin-bottom: var(--spacing-md);
 }
 
-/* Responsive Design */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 768px) {
     .nav-links {
         flex-wrap: wrap;
-        gap: var(--spacing-sm);
+        gap: var(--spacing-xs);
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
     }
 
     .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .reviews-grid {
@@ -491,18 +749,16 @@ footer {
     }
 }
 
-/* Animations */
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(16px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.review-card {
-    animation: fadeIn 0.5s ease-out;
 }
