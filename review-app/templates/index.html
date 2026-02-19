@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Movie & Game Reviews{% endblock %}
+{% block title %}Home - Persona Reviews{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>Movie & Game Reviews</h1>
-    <p>Discover what others think about the latest movies and games</p>
+    <h1>Persona Reviews</h1>
+    <p>Discover what others think about the Persona series</p>
 </div>
 
-<!-- ===== COLLECTION STRIP ===== -->
+<!-- ===== COLLECTION GRID ===== -->
 {% if collection %}
 <section class="collection-section">
     <h2 class="collection-heading">Collection</h2>
-    <div class="collection-strip">
+    <div class="collection-grid">
         {% for item in collection %}
         {% set poster = item.title | poster_path %}
-        <a href="{{ url_for('reviews.by_title', title=item.title) }}" class="collection-tile category-border-{{ item.category }}" title="{{ item.title }}">
+        <a href="{{ url_for('reviews.by_title', title=item.title) }}" class="collection-tile" title="{{ item.title }}">
             <div class="poster-wrapper">
                 {% if poster %}
                 <img src="{{ url_for('static', filename=poster) }}" alt="{{ item.title }} poster" class="poster-img">
                 {% else %}
                 <div class="poster-placeholder">
-                    <span class="poster-icon">{% if item.category == 'movie' %}🎬{% else %}🎮{% endif %}</span>
+                    <span class="poster-icon">🎮</span>
                 </div>
                 {% endif %}
             </div>
@@ -40,19 +40,17 @@
 <section class="featured-section">
     <h2 class="featured-heading">Featured Review</h2>
     <div class="featured-card category-border-{{ featured.category }}">
-        <!-- Poster area -->
         <div class="featured-poster-wrapper">
             {% if featured_poster %}
             <img src="{{ url_for('static', filename=featured_poster) }}" alt="{{ featured.title }} poster" class="featured-poster-img">
             {% else %}
             <div class="featured-poster-placeholder">
-                <span class="poster-icon">{% if featured.category == 'movie' %}🎬{% else %}🎮{% endif %}</span>
+                <span class="poster-icon">🎮</span>
                 <span class="placeholder-label">Poster coming soon</span>
             </div>
             {% endif %}
         </div>
 
-        <!-- Review content -->
         <div class="featured-body">
             <div class="featured-title-row">
                 <h3 class="featured-title">{{ featured.title }}</h3>

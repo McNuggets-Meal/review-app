@@ -1,174 +1,112 @@
-/* Review Pages — Nintendo Switch Theme */
-
 /* ============================================================
-   REVIEW FORM — game cartridge slot panel
+   Review Pages — Dark Mode
    ============================================================ */
-.review-form-container {
-    max-width: 800px;
-    margin: var(--spacing-xl) auto;
-    background: var(--card-bg);
-    padding: var(--spacing-xl);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    border-top: 6px solid var(--switch-red);
-    position: relative;
-    overflow: hidden;
-}
 
-/* Blue accent corner strip */
-.review-form-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 6px;
-    background: var(--switch-blue);
+/* ── Review Form ─────────────────────────────────────────────── */
+.review-form-container {
+    max-width: 720px;
+    margin: var(--s10) auto;
+    background: var(--card);
+    padding: var(--s8);
+    border-radius: var(--r-xl);
+    border: 1px solid var(--border);
 }
 
 .review-form-container h2 {
-    color: var(--switch-dark);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--spacing-sm);
-    text-decoration: underline;
-    text-decoration-color: var(--switch-red);
-    text-underline-offset: 5px;
-    text-decoration-thickness: 3px;
+    color: var(--t1);
+    letter-spacing: -0.04em;
+    margin-bottom: var(--s2);
 }
 
 .review-form-container > p {
-    color: var(--text-light);
-    margin-bottom: var(--spacing-lg);
-    font-size: 0.9rem;
-    font-weight: 600;
+    color: var(--t3);
+    margin-bottom: var(--s6);
+    font-size: 0.875rem;
 }
 
-/* ============================================================
-   REVIEW DETAIL PAGE
-   ============================================================ */
+/* ── Review Detail ───────────────────────────────────────────── */
 .review-detail {
-    max-width: 900px;
-    margin: var(--spacing-xl) auto;
+    max-width: 820px;
+    margin: var(--s10) auto;
 }
 
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--switch-blue-dark);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: var(--spacing-md);
-    padding: 0.3rem 0.75rem;
-    border: 2px solid var(--switch-blue);
-    border-radius: var(--border-radius-pill);
-    transition: background 0.2s, color 0.2s;
-}
-
-.back-link:hover {
-    background: var(--switch-blue);
-    color: var(--switch-dark);
-}
-
-/* Header panel — like the Switch game detail screen */
 .review-header-section {
-    background: var(--card-bg);
-    padding: var(--spacing-xl);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: var(--spacing-lg);
-    border-top: 6px solid var(--switch-blue);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Red right accent */
-.review-header-section::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 6px;
-    background: var(--switch-red);
+    background: var(--card);
+    padding: var(--s8);
+    border-radius: var(--r-xl);
+    border: 1px solid var(--border);
+    margin-bottom: var(--s4);
 }
 
 .review-title-section {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
+    gap: var(--s4);
+    margin-bottom: var(--s4);
+    flex-wrap: wrap;
 }
 
 .review-title-section h1 {
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 4vw, 2rem);
     font-weight: 700;
-    color: var(--switch-dark);
-    letter-spacing: 0.02em;
+    color: var(--t1);
+    letter-spacing: -0.04em;
+    line-height: 1.15;
 }
 
-/* Large star rating */
 .review-rating-large {
-    font-size: 1.5rem;
-    color: var(--switch-yellow-dark);
-    margin-bottom: var(--spacing-md);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--star);
+    margin-bottom: var(--s4);
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
 }
 
 .review-metadata p {
-    margin: var(--spacing-xs) 0;
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-weight: 600;
+    margin: var(--s2) 0;
+    color: var(--t3);
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
-/* Review text content panel */
+.review-metadata strong { color: var(--t2); }
+
+/* Review content panel */
 .review-content {
-    background: var(--card-bg);
-    padding: var(--spacing-xl);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: var(--spacing-lg);
-    border-left: 5px solid var(--switch-yellow-dark);
+    background: var(--card);
+    padding: var(--s8);
+    border-radius: var(--r-xl);
+    border: 1px solid var(--border);
+    margin-bottom: var(--s4);
 }
 
 .review-content h3 {
-    color: var(--switch-dark);
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.68rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--spacing-md);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: var(--spacing-xs);
+    letter-spacing: 0.1em;
+    color: var(--t3);
+    margin-bottom: var(--s5);
+    padding-bottom: var(--s3);
+    border-bottom: 1px solid var(--border-2);
 }
 
 .review-text {
     line-height: 1.85;
-    font-size: 1.05rem;
+    font-size: 1rem;
     white-space: pre-wrap;
-    color: var(--switch-dark);
+    color: var(--t1);
 }
 
-/* Action buttons row */
-.review-actions {
-    display: flex;
-    gap: var(--spacing-sm);
-}
+.review-actions { display:flex; gap:var(--s3); }
 
-/* ============================================================
-   MY REVIEWS PAGE
-   ============================================================ */
+/* ── My Reviews ──────────────────────────────────────────────── */
 .my-reviews-page {
-    max-width: 1000px;
-    margin: var(--spacing-xl) auto;
+    max-width: 920px;
+    margin: var(--s10) auto;
 }
 
 .my-reviews-page .page-header {
@@ -176,120 +114,91 @@
     justify-content: space-between;
     align-items: center;
     text-align: left;
-    margin-bottom: var(--spacing-lg);
+    padding: 0;
+    margin-bottom: var(--s6);
+}
+
+.my-reviews-page .page-header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
 }
 
 .review-count {
-    color: var(--text-light);
-    margin-bottom: var(--spacing-md);
-    font-size: 0.9rem;
+    color: var(--t3);
+    margin-bottom: var(--s5);
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
 }
 
-.my-reviews-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
+.my-reviews-list { display:flex; flex-direction:column; gap:var(--s3); }
 
-/* Individual card in "My Reviews" — Switch home screen tile style */
 .my-review-card {
-    background: var(--card-bg);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    border-left: 5px solid var(--switch-blue);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--card);
+    padding: var(--s5) var(--s6);
+    border-radius: var(--r);
+    border: 1px solid var(--border-2);
+    transition: border-color 0.2s ease, transform 0.2s ease;
 }
-
-/* Alternate accent colours matching the grid pattern */
-.my-reviews-list .my-review-card:nth-child(3n+2) {
-    border-left-color: var(--switch-red);
-}
-.my-reviews-list .my-review-card:nth-child(3n+3) {
-    border-left-color: var(--switch-yellow-dark);
-}
-
 .my-review-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--box-shadow-hover);
+    border-color: var(--border);
+    transform: translateY(-2px);
 }
 
 .my-review-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--s2);
 }
 
 .my-review-header h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--switch-dark);
-    margin-bottom: var(--spacing-xs);
-    letter-spacing: 0.02em;
+    color: var(--t1);
+    letter-spacing: -0.02em;
+}
+
+.my-review-rating {
+    color: var(--star);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    white-space: nowrap;
 }
 
 .my-review-meta {
-    font-size: 0.82rem;
-    color: var(--text-light);
-    margin-bottom: var(--spacing-sm);
-    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--t3);
+    margin-bottom: var(--s3);
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
 }
-
-.my-review-meta span {
-    margin-right: var(--spacing-md);
-}
+.my-review-meta span { margin-right:var(--s4); }
 
 .my-review-excerpt {
-    margin-bottom: var(--spacing-md);
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: var(--switch-dark);
+    margin-bottom: var(--s4);
+    line-height: 1.65;
+    font-size: 0.875rem;
+    color: var(--t2);
 }
 
 .my-review-actions {
     display: flex;
-    gap: var(--spacing-sm);
-    padding-top: var(--spacing-sm);
-    border-top: 2px solid var(--border-color);
+    gap: var(--s3);
+    padding-top: var(--s4);
+    border-top: 1px solid var(--border-2);
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
-    .my-reviews-page .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-sm);
-    }
-
-    .review-title-section {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .review-actions,
-    .my-review-actions {
-        flex-direction: column;
-    }
-
-    .form-actions {
-        flex-direction: column;
-    }
-
-    .btn-full {
-        width: 100%;
-    }
-
-    .review-form-container,
-    .review-header-section,
-    .review-content {
-        padding: var(--spacing-md);
-    }
+    .my-reviews-page .page-header { flex-direction:column; align-items:flex-start; gap:var(--s3); }
+    .review-title-section { flex-direction:column; align-items:flex-start; }
+    .review-actions,.my-review-actions,.form-actions { flex-direction:column; }
+    .review-form-container,.review-header-section,.review-content { padding:var(--s5); }
+    .review-detail,.my-reviews-page { margin:var(--s6) auto; }
 }

@@ -3,6 +3,7 @@ Main Routes
 Handles home page and other main application pages
 """
 
+import random
 from flask import Blueprint, render_template, request
 from models.review import get_all_reviews, get_collection_items
 
@@ -13,8 +14,8 @@ def index():
     """Home page - displays collection and a featured review"""
     collection = get_collection_items()
 
-    # Pick the featured item: first collection entry that has a review
-    featured = collection[0] if collection else None
+    # Pick a random collection entry as the featured review each page load
+    featured = random.choice(collection) if collection else None
 
     return render_template(
         'index.html',

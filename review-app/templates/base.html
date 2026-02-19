@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Review movies and games - Share your opinions">
-    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Persona game reviews — Share your opinions on the series">
+    <meta name="theme-color" content="#06060a">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/icon-192x192.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reviews.css') }}">
     {% block head %}{% endblock %}
-    <title>{% block title %}Movie & Game Reviews{% endblock %}</title>
+    <title>{% block title %}Persona Reviews{% endblock %}</title>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="{{ url_for('main.index') }}" class="logo">🎬 Reviews</a>
+            <a href="{{ url_for('main.index') }}" class="logo">
+                Persona Reviews
+            </a>
             <div class="nav-links">
                 <a href="{{ url_for('main.index') }}">Home</a>
                 {% if session.user_id %}
@@ -46,7 +50,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Movie & Game Reviews PWA | Built with Flask</p>
+            <p>&copy; 2026 Persona Reviews &mdash; Built with Flask</p>
         </div>
     </footer>
 
