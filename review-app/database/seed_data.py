@@ -1,6 +1,6 @@
 """
 Database Seeding Script
-Populates the database with sample users, movies/games, and reviews
+Populates the database with sample users and Persona series reviews
 """
 
 import sqlite3
@@ -43,9 +43,10 @@ def seed_database():
         print("\n=== Creating Users ===")
 
         users = [
-            ('alex_tehvand', 'alex@example.com', 'SecurePass123!'),
+            ('alex_tehvand',    'alex@example.com',   'SecurePass123!'),
             ('reuben_sandwich', 'reuben@example.com', 'JaneSecure456!'),
-            ('wong_wongster', 'wong@example.com', 'AlexPass789!')
+            ('wong_wongster',   'wong@example.com',   'AlexPass789!'),
+            ('anonymous',       'anon@example.com',   'AnonPass000!'),
         ]
 
         for username, email, password in users:
@@ -62,41 +63,95 @@ def seed_database():
         # === CREATE REVIEWS ===
         print("\n=== Creating Reviews ===")
 
-        # Define reviews with: (user_id, title, review_text, rating, category, days_ago)
+        # user_id key:
+        #   1 = alex_tehvand       — reviews: Revelations: Persona, Persona 3 FES, Persona 5 Royal
+        #   2 = reuben_sandwich    — reviews: Persona 2: Innocent Sin, Persona 4 Golden, Persona 3 ReLoad
+        #   3 = wong_wongster      — reviews: Persona 2: Eternal Punishment, Persona Q, Persona 5 Royal
+        #   4 = anonymous          — one review for every game
+
+        # Format: (user_id, title, review_text, rating, category, days_ago)
         reviews = [
-            # User 1 (john_doe) reviews
-            (1, 'The Matrix', 'A groundbreaking sci-fi film that explores the nature of reality and consciousness. The action sequences are innovative and the philosophical themes are thought-provoking. Keanu Reeves delivers an iconic performance as Neo. A must-watch for any sci-fi fan.', 5, 'movie', 10),
-            (1, 'Inception', 'Mind-bending thriller with incredible visuals and a complex plot. Christopher Nolan at his finest. The layered dream sequences are brilliantly executed, and the ending leaves you questioning everything. Hans Zimmer\'s score is phenomenal.', 5, 'movie', 9),
-            (1, 'Interstellar', 'Epic science fiction masterpiece about love, time, and survival. Stunning visuals and emotional depth. The portrayal of black holes and relativity is both scientifically grounded and visually spectacular. Matthew McConaughey gives one of his best performances.', 5, 'movie', 8),
-            (1, 'Cyberpunk 2077', 'After the updates, this game has become truly amazing. The world of Night City is incredibly detailed and immersive. The story is engaging, characters are memorable, and the gameplay is satisfying. Still has some bugs but the overall experience is fantastic.', 4, 'game', 5),
 
-            # User 2 (jane_smith) reviews
-            (2, 'Hollow Knight', 'An absolute masterpiece of game design. The hand-drawn art style is breathtaking, and the challenging gameplay keeps you engaged for hours. The exploration is rewarding and the boss fights are memorable. One of the best Metroidvania games ever made.', 5, 'game', 7),
-            (2, 'The Witcher 3', 'Best RPG I\'ve ever played. Rich storytelling, complex characters, and a massive world to explore. Every quest feels meaningful, and the moral choices genuinely matter. Geralt is a fantastic protagonist, and the DLCs are even better than the base game.', 5, 'game', 6),
-            (2, 'Dune', 'Visually stunning adaptation of Frank Herbert\'s epic novel. Denis Villeneuve\'s direction is masterful. The cinematography, score, and performances all come together perfectly. Can\'t wait for Part Two. Timothée Chalamet and Zendaya are excellent.', 5, 'movie', 4),
-            (2, 'The Matrix', 'Revolutionary film that changed action cinema forever. The bullet-time effects were groundbreaking for 1999. The story about reality and choice is still relevant today. A perfect blend of philosophy and action.', 5, 'movie', 12),
+            # ── alex_tehvand (user 1) ── 3 reviews
+            (1, 'Revelations: Persona',
+             'A rough but fascinating start to the Persona series. The dungeon crawling is repetitive by modern standards but the demon negotiation system and dark atmosphere kept me hooked. You can clearly see the DNA of everything that came after. Essential for any serious Persona fan wanting to understand the origins of the series.',
+             4, 'game', 20),
 
-            # User 3 (alex_wong) reviews
-            (3, 'Elden Ring', 'An absolute masterpiece that combines the best elements of Dark Souls with an expansive open world. The difficulty is challenging but fair, and every victory feels earned. The lore is deep and mysterious, typical of FromSoftware. George R.R. Martin\'s contributions to the worldbuilding are evident.', 5, 'game', 3),
-            (3, 'Hollow Knight', 'Incredibly atmospheric Metroidvania with tight controls and beautiful art. The difficulty curve is perfect, and the sense of exploration is unmatched. Team Cherry created something truly special. Every area has its own distinct feel and challenges.', 5, 'game', 11),
-            (3, 'Inception', 'Christopher Nolan\'s masterpiece. The concept of dreams within dreams is executed flawlessly. Leonardo DiCaprio leads an excellent cast. The practical effects still hold up perfectly. That ending though - still debating it years later!', 5, 'movie', 13),
-            (3, 'The Witcher 3', 'Incredible open-world RPG with amazing storytelling. CD Projekt Red set the bar high. Geralt\'s journey is emotional and engaging. The Bloody Baron questline alone is worth the price of admission. Hearts of Stone and Blood and Wine DLCs are essential.', 5, 'game', 14),
+            (1, 'Persona 3 FES',
+             'Persona 3 FES is an emotionally devastating experience that I will never forget. The themes of death and mortality are handled with such maturity and care. The cast of SEES feel like real people and watching their journeys unfold over the school year is deeply moving. Tartarus gets repetitive but the story more than makes up for it. The Answer epilogue adds a bitter but satisfying conclusion.',
+             5, 'game', 12),
 
-            # Additional reviews for variety
-            (1, 'Dune', 'Denis Villeneuve proves once again he\'s a visionary director. The scale and scope of this film are breathtaking. The desert planet Arrakis feels real and dangerous. Looking forward to seeing how they conclude the story.', 4, 'movie', 2),
-            (2, 'Elden Ring', 'FromSoftware\'s magnum opus. The open-world format breathes new life into the Souls formula. So much content and replayability. The boss designs are some of the best in gaming. Prepare to die... a lot.', 5, 'game', 1),
-            (3, 'Cyberpunk 2077', 'The game has come a long way since launch. Night City is one of the most detailed game worlds ever created. The story of V and Johnny Silverhand is compelling. Keanu Reeves\' performance as Johnny is excellent. Worth playing now after all the patches.', 4, 'game', 2),
+            (1, 'Persona 5 Royal',
+             'An absolute masterpiece from start to finish. Persona 5 Royal refines everything the base game did and adds a genuinely touching new semester that recontextualises the whole story. The art style is the most stylish thing in gaming, the soundtrack is incredible, and every Phantom Thief feels fully realised. Easily one of the greatest JRPGs ever made.',
+             5, 'game', 4),
+
+            # ── reuben_sandwich (user 2) ── 3 reviews
+            (2, 'Persona 2: Innocent Sin',
+             'Innocent Sin is a wildly ambitious game with one of the darkest and most mature stories in the entire series. The rumour system is a genuinely clever mechanic and the villain is terrifying. The combat is a little dated but the character writing is outstanding, especially Tatsuya and his friends. The ending hit me harder than I expected. A hidden gem that deserves far more attention.',
+             4, 'game', 18),
+
+            (2, 'Persona 4 Golden',
+             'Persona 4 Golden is pure comfort food JRPG perfection. The murder mystery plot is compelling, Inaba feels like a real town you want to live in, and the social links are some of the best written in the series. Golden adds Marie and extra content that genuinely enriches the experience. The gameplay loop of dungeon crawling and managing your social life is endlessly satisfying. A timeless classic.',
+             5, 'game', 9),
+
+            (2, 'Persona 3 ReLoad',
+             'ReLoad is the definitive way to experience Persona 3. The visual overhaul is stunning, the new voice cast is excellent, and the quality of life improvements make the dungeons far less of a slog. Seeing this story with modern polish brought tears to my eyes all over again. My only complaint is the absence of The Answer but as a remake of the base game it is flawless.',
+             5, 'game', 2),
+
+            # ── wong_wongster (user 3) ── 3 reviews
+            (3, 'Persona 2: Eternal Punishment',
+             'Eternal Punishment tells the same story as Innocent Sin from the other side and does it brilliantly. Maya Amano is a fantastic protagonist and the more grounded cast of adults gives the game a completely different tone to the rest of the series. The gameplay is the same as IS but the narrative payoff for playing both games is immense. One of the most underrated games in the franchise.',
+             5, 'game', 16),
+
+            (3, 'Persona Q: Shadow of the Labyrinth',
+             'A fun crossover between Persona 3 and 4 that works better than it has any right to. The Etrian Odyssey dungeon crawling formula suits the Persona characters surprisingly well and the interactions between the two casts are entertaining throughout. It is clearly fan service but it is well crafted fan service. Not the best entry point for newcomers but fans of both games will enjoy it.',
+             3, 'game', 7),
+
+            (3, 'Persona 5 Royal',
+             'I came into Persona 5 Royal with sky high expectations and it somehow exceeded them. The heist framing for the dungeons is genius, the Palaces are all memorable and creative, and Joker might be the coolest silent protagonist in JRPG history. The third semester added in Royal wraps everything up in a way that left me staring at the credits in silence. An unforgettable experience.',
+             5, 'game', 3),
+
+            # ── anonymous (user 4) ── one review per game
+            (4, 'Revelations: Persona',
+             'Dated but interesting. The first Persona game shows its age in almost every system but the dark tone and experimental ideas make it worth experiencing if you are curious about where the series began. Manage your expectations and you might find something genuinely compelling underneath the rough exterior.',
+             3, 'game', 25),
+
+            (4, 'Persona 2: Innocent Sin',
+             'The story in Innocent Sin is unlike anything else in the series. It goes to genuinely dark places and the cast dynamic is excellent. The combat system has not aged particularly well but the writing carries it. If you can look past the dated mechanics there is a deeply emotional game here that stands up alongside the modern entries.',
+             4, 'game', 22),
+
+            (4, 'Persona 2: Eternal Punishment',
+             'A worthy companion to Innocent Sin. Eternal Punishment reframes events in a way that adds real depth to the duology. Maya is a great lead and the tone feels distinct from everything else Atlus has made. Playing both Persona 2 games together is one of the best storytelling experiences the series has to offer.',
+             4, 'game', 21),
+
+            (4, 'Persona 3 FES',
+             'Persona 3 FES changed what I thought a JRPG could be. The memento mori theme runs through every part of the game and it never feels heavy handed. The social simulation elements blend seamlessly with the dungeon crawling and the final stretch of the game is one of the most powerful sequences in gaming. FES is the version to play.',
+             5, 'game', 15),
+
+            (4, 'Persona 4 Golden',
+             'Persona 4 Golden is one of the most purely enjoyable games I have ever played. It is warm, funny, and surprisingly emotional when it wants to be. The mystery plot keeps you engaged for the entire runtime and the Golden additions improve an already great game. If you only ever play one Persona game make it this one.',
+             5, 'game', 11),
+
+            (4, 'Persona Q: Shadow of the Labyrinth',
+             'A decent side game that fans of Persona 3 and 4 will get the most out of. The chibi art style is charming and the dungeon design is solid if unspectacular. The story is lightweight compared to the mainline games but it is a fun excuse to see the two casts interact. Worth playing during a gap between the bigger entries.',
+             3, 'game', 8),
+
+            (4, 'Persona 5 Royal',
+             'Persona 5 Royal deserves every piece of praise it receives. The game oozes style from the menu screens to the battle transitions to the incredible soundtrack. The story about rebelling against corrupt authority figures resonates strongly and the characters are all loveable. Royal takes an already brilliant game and makes it essential. A genuine landmark for the genre.',
+             5, 'game', 5),
+
+            (4, 'Persona 3 ReLoad',
+             'ReLoad is proof that great games only get better with love and care. The Persona 3 story is one of the best in the series and ReLoad presents it with a level of visual and audio polish that feels truly modern. The new social link content adds welcome texture to characters who were previously underserved. An outstanding remake that respects the original while making it accessible to a new generation.',
+             5, 'game', 1),
         ]
 
         for user_id, title, review_text, rating, category, days_ago in reviews:
-            # Calculate review_date (recent reviews)
             review_date = (datetime.now() - timedelta(days=days_ago)).strftime('%Y-%m-%d %H:%M:%S')
-
             cursor.execute(
                 "INSERT INTO reviews (user_id, title, review_text, rating, review_date, category) VALUES (?, ?, ?, ?, ?, ?)",
                 (user_id, title, review_text, rating, review_date, category)
             )
-            print(f"[OK] Created review: {title} ({category}) - {rating}* by user {user_id}")
+            print(f"[OK] Created review: {title} - {rating}* by user {user_id}")
 
         conn.commit()
         print(f"\nTotal reviews created: {len(reviews)}")
@@ -106,26 +161,18 @@ def seed_database():
         print("DATABASE SEEDING COMPLETE!")
         print("=" * 60)
 
-        # Count by category
-        cursor.execute("SELECT category, COUNT(*) FROM reviews GROUP BY category")
-        categories = cursor.fetchall()
-        print("\nReviews by category:")
-        for category, count in categories:
-            print(f"  {category.capitalize()}: {count}")
-
-        # Count unique titles
         cursor.execute("SELECT COUNT(DISTINCT title) FROM reviews")
         unique_titles = cursor.fetchone()[0]
-        print(f"\nUnique movies/games: {unique_titles}")
+        print(f"\nUnique games:   {unique_titles}")
+        print(f"Total reviews:  {len(reviews)}")
 
-        # Show sample login credentials
         print("\n" + "=" * 60)
         print("SAMPLE LOGIN CREDENTIALS:")
         print("=" * 60)
         for username, email, password in users:
             print(f"Username: {username}")
             print(f"Password: {password}")
-            print(f"Email: {email}")
+            print(f"Email:    {email}")
             print("-" * 60)
 
         print("\nYou can now run the application with: python app.py")
