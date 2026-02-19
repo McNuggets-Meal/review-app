@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} Reviews - Movie & Game Reviews{% endblock %}
+
+{% block content %}
+{% set poster = title | poster_path %}
+
+<div class="page-header">
+    <a href="{{ url_for('main.index') }}" class="back-link">← Back to collection</a>
+    <h1>{{ title }}</h1>
+    <p>{{ reviews|length }} review{% if reviews|length != 1 %}s{% endif %}</p>
+</div>
+
+<!-- Poster for the title page -->
+<div class="title-poster-row">
+    <div class="title-poster-wrapper">
+        {% if poster %}
+        <img src="{{ url_for('static', filename=poster) }}" alt="{{ title }} poster" class="title-poster-img">
+        {% else %}
+        <div class="title-poster-placeholder">
+            <span style="font-size:3rem;">{% if category == 'movie' %}🎬{% else %}🎮{% endif %}</span>
+            <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.7;">Poster coming soon</span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="reviews-grid">
+    {% for review in reviews %}
+    <div class="review-card">
+        <div class="review-header">
+            <h3>{{ review.title }}</h3>
+        </div>
+        <div class="review-rating">
+            {{ review.rating|star_rating }}
+            <span class="rating-number">({{ review.rating }}/5)</span>
+        </div>
+        <div class="review-excerpt">
+            {{ review.review_text|truncate_text(150) }}
+        </div>
+        <div class="review-meta">
+            <span class="review-author">by {{ review.username }}</span>
+            <span class="review-date">{{ review.review_date|format_date }}</span>
+        </div>
+        <a href="{{ url_for('reviews.view', review_id=review.id) }}" class="btn-link">Read More →</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

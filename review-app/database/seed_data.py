@@ -43,9 +43,9 @@ def seed_database():
         print("\n=== Creating Users ===")
 
         users = [
-            ('john_doe', 'john@example.com', 'SecurePass123!'),
-            ('jane_smith', 'jane@example.com', 'JaneSecure456!'),
-            ('alex_wong', 'alex@example.com', 'AlexPass789!')
+            ('alex_tehvand', 'alex@example.com', 'SecurePass123!'),
+            ('reuben_sandwich', 'reuben@example.com', 'JaneSecure456!'),
+            ('wong_wongster', 'wong@example.com', 'AlexPass789!')
         ]
 
         for username, email, password in users:

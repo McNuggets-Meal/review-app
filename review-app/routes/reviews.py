@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from models.review import (
     create_review, get_all_reviews, get_review_by_id,
     get_reviews_by_user_id, update_review, delete_review,
-    check_review_ownership
+    check_review_ownership, get_reviews_by_title
 )
 from utils.validators import validate_title, validate_review_text, validate_rating, validate_category
 from utils.security import sanitize_input
@@ -187,6 +187,16 @@ def delete(review_id):
         flash('Failed to delete review. Please try again.', 'danger')
 
     return redirect(url_for('reviews.my_reviews'))
+
+@reviews_bp.route('/title/<path:title>')
+def by_title(title):
+    """View all reviews for a specific movie/game title"""
+    reviews = get_reviews_by_title(title)
+    if not reviews:
+        abort(404)
+    category = reviews[0]['category']
+    return render_template('reviews/by_title.html', title=title, reviews=reviews, category=category)
+
 
 @reviews_bp.route('/my')
 @login_required

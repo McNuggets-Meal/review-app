@@ -193,6 +193,88 @@ def delete_review(review_id):
         print(f"Error deleting review: {e}")
         return False
 
+def get_collection_items():
+    """
+    Get unique movie/game titles for the collection display.
+    Returns one entry per unique title (the most recent review for that title),
+    ordered by a fixed series release order, with a count of reviews per title.
+
+    Returns:
+        list: List of dicts with title, category, rating, id, username, review_text, review_count
+    """
+    # Desired display order — Persona series chronological release order
+    SERIES_ORDER = [
+        'Revelations: Persona',
+        'Persona 2: Innocent Sin',
+        'Persona 2: Eternal Punishment',
+        'Persona 3 FES',
+        'Persona 4 Golden',
+        'Persona Q: Shadow of the Labyrinth',
+        'Persona 5 Royal',
+        'Persona 3 ReLoad',
+    ]
+
+    try:
+        conn = get_db_connection()
+        rows = conn.execute(
+            """
+            SELECT r.id, r.title, r.category, r.rating, r.review_text, r.review_date,
+                   u.username, counts.review_count
+            FROM reviews r
+            JOIN users u ON r.user_id = u.id
+            JOIN (
+                SELECT title, COUNT(*) AS review_count, MAX(review_date) AS latest
+                FROM reviews
+                GROUP BY title
+            ) counts ON r.title = counts.title AND r.review_date = counts.latest
+            GROUP BY r.title
+            """
+        ).fetchall()
+        conn.close()
+
+        rows = [dict(row) for row in rows]
+
+        # Sort by the fixed series order; titles not in the list go to the end
+        def sort_key(row):
+            try:
+                return SERIES_ORDER.index(row['title'])
+            except ValueError:
+                return len(SERIES_ORDER)
+
+        rows.sort(key=sort_key)
+        return rows
+    except Exception as e:
+        print(f"Error retrieving collection items: {e}")
+        return []
+
+
+def get_reviews_by_title(title):
+    """
+    Get all reviews for a specific movie/game title.
+
+    Args:
+        title (str): The movie/game title
+
+    Returns:
+        list: List of review dicts with user information
+    """
+    try:
+        conn = get_db_connection()
+        reviews = conn.execute(
+            """SELECT reviews.*, users.username
+               FROM reviews
+               JOIN users ON reviews.user_id = users.id
+               WHERE reviews.title = ?
+               ORDER BY reviews.review_date DESC""",
+            (title,)
+        ).fetchall()
+        conn.close()
+        return [dict(r) for r in reviews]
+    except Exception as e:
+        print(f"Error retrieving reviews by title: {e}")
+        return []
+
+
 def check_review_ownership(review_id, user_id):
     """
     Check if a user owns a specific review

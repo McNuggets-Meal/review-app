@@ -762,3 +762,294 @@ footer::before {
         transform: translateY(0);
     }
 }
+
+/* ============================================================
+   COLLECTION STRIP
+   ============================================================ */
+.collection-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.collection-heading,
+.featured-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--switch-dark);
+    margin-bottom: var(--spacing-sm);
+    border-left: 5px solid var(--switch-yellow-dark);
+    padding-left: var(--spacing-sm);
+}
+
+.collection-strip {
+    display: flex;
+    gap: var(--spacing-sm);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-sm);
+    /* Hide scrollbar on modern browsers but keep it functional */
+    scrollbar-width: thin;
+    scrollbar-color: var(--switch-blue) transparent;
+}
+
+.collection-strip::-webkit-scrollbar {
+    height: 6px;
+}
+
+.collection-strip::-webkit-scrollbar-thumb {
+    background: var(--switch-blue);
+    border-radius: 3px;
+}
+
+.collection-tile {
+    flex: 0 0 130px;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeIn 0.4s ease-out;
+    border-top: 4px solid var(--switch-blue);
+}
+
+.collection-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+/* Category-coloured top border on tiles */
+.category-border-movie  { border-top-color: var(--switch-red); }
+.category-border-game   { border-top-color: var(--switch-blue); }
+
+/* ============================================================
+   POSTER WRAPPER (shared between tile and featured card)
+   ============================================================ */
+.poster-wrapper {
+    width: 100%;
+    aspect-ratio: 2 / 3;   /* Standard movie/game poster ratio */
+    background: var(--switch-dark-2);
+    position: relative;
+    overflow: hidden;
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.poster-placeholder {
+    display: flex;          /* toggled to none when real image loads */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--switch-dark) 0%, var(--switch-dark-2) 100%);
+    color: var(--switch-gray);
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.poster-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.tile-info {
+    padding: 0.5rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.tile-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--switch-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    /* Clamp to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ============================================================
+   FEATURED REVIEW CARD
+   ============================================================ */
+.featured-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.featured-card {
+    display: flex;
+    gap: var(--spacing-lg);
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    border-top: 5px solid var(--switch-blue);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.featured-poster-wrapper {
+    flex: 0 0 200px;
+    aspect-ratio: 2 / 3;
+    background: var(--switch-dark-2);
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.featured-poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.featured-poster-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--switch-dark) 0%, var(--switch-dark-2) 100%);
+    color: var(--switch-gray);
+    position: absolute;
+    top: 0; left: 0;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.featured-poster-placeholder .poster-icon {
+    font-size: 3.5rem;
+}
+
+.placeholder-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.7;
+}
+
+.featured-body {
+    flex: 1;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.featured-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.featured-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--switch-dark);
+    letter-spacing: 0.03em;
+    flex: 1;
+}
+
+.featured-excerpt {
+    color: var(--text-color);
+    line-height: 1.6;
+    font-size: 0.98rem;
+    flex: 1;
+}
+
+.featured-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+/* ============================================================
+   TITLE PAGE — poster + all reviews
+   ============================================================ */
+.title-poster-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.title-poster-wrapper {
+    width: 200px;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    background: var(--switch-dark-2);
+}
+
+.title-poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.title-poster-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--switch-dark) 0%, var(--switch-dark-2) 100%);
+    color: var(--switch-gray);
+    position: absolute;
+    top: 0; left: 0;
+    text-align: center;
+    padding: 1rem;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--switch-blue-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.03em;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive: stack featured card on small screens */
+@media (max-width: 600px) {
+    .featured-card {
+        flex-direction: column;
+    }
+
+    .featured-poster-wrapper {
+        flex: none;
+        width: 100%;
+        min-height: 220px;
+        aspect-ratio: 16 / 9;
+    }
+
+    .collection-tile {
+        flex: 0 0 100px;
+    }
+}

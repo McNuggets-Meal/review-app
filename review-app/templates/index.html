@@ -8,65 +8,88 @@
     <p>Discover what others think about the latest movies and games</p>
 </div>
 
-<div class="filters">
-    <form method="GET" action="{{ url_for('main.index') }}">
-        <label for="category">Category:</label>
-        <select name="category" id="category" onchange="this.form.submit()">
-            <option value="">All</option>
-            <option value="movie" {% if current_category == 'movie' %}selected{% endif %}>Movies</option>
-            <option value="game" {% if current_category == 'game' %}selected{% endif %}>Games</option>
-        </select>
-
-        <label for="rating">Rating:</label>
-        <select name="rating" id="rating" onchange="this.form.submit()">
-            <option value="">All Ratings</option>
-            <option value="5" {% if current_rating == 5 %}selected{% endif %}>5 Stars</option>
-            <option value="4" {% if current_rating == 4 %}selected{% endif %}>4+ Stars</option>
-            <option value="3" {% if current_rating == 3 %}selected{% endif %}>3+ Stars</option>
-        </select>
-
-        {% if current_category or current_rating %}
-        <a href="{{ url_for('main.index') }}" class="btn-secondary">Clear Filters</a>
-        {% endif %}
-    </form>
-</div>
-
-<div class="reviews-grid">
-    {% if reviews %}
-        {% for review in reviews %}
-        <div class="review-card">
-            <div class="review-header">
-                <h3>{{ review.title }}</h3>
-                <span class="category-badge category-{{ review.category }}">{{ review.category }}</span>
+<!-- ===== COLLECTION STRIP ===== -->
+{% if collection %}
+<section class="collection-section">
+    <h2 class="collection-heading">Collection</h2>
+    <div class="collection-strip">
+        {% for item in collection %}
+        {% set poster = item.title | poster_path %}
+        <a href="{{ url_for('reviews.by_title', title=item.title) }}" class="collection-tile category-border-{{ item.category }}" title="{{ item.title }}">
+            <div class="poster-wrapper">
+                {% if poster %}
+                <img src="{{ url_for('static', filename=poster) }}" alt="{{ item.title }} poster" class="poster-img">
+                {% else %}
+                <div class="poster-placeholder">
+                    <span class="poster-icon">{% if item.category == 'movie' %}🎬{% else %}🎮{% endif %}</span>
+                </div>
+                {% endif %}
             </div>
-            <div class="review-rating">
-                {{ review.rating|star_rating }}
-                <span class="rating-number">({{ review.rating }}/5)</span>
+            <div class="tile-info">
+                <span class="tile-title">{{ item.title }}</span>
             </div>
-            <div class="review-excerpt">
-                {{ review.review_text|truncate_text(150) }}
-            </div>
-            <div class="review-meta">
-                <span class="review-author">by {{ review.username }}</span>
-                <span class="review-date">{{ review.review_date|format_date }}</span>
-            </div>
-            <a href="{{ url_for('reviews.view', review_id=review.id) }}" class="btn-link">Read More →</a>
-        </div>
+        </a>
         {% endfor %}
-    {% else %}
-        <div class="empty-state">
-            <h2>No reviews found</h2>
-            <p>Be the first to post a review!</p>
-            {% if not session.user_id %}
-            <a href="{{ url_for('auth.register') }}" class="btn-primary">Register to Post Review</a>
+    </div>
+</section>
+{% endif %}
+
+<!-- ===== FEATURED REVIEW ===== -->
+{% if featured %}
+{% set featured_poster = featured.title | poster_path %}
+<section class="featured-section">
+    <h2 class="featured-heading">Featured Review</h2>
+    <div class="featured-card category-border-{{ featured.category }}">
+        <!-- Poster area -->
+        <div class="featured-poster-wrapper">
+            {% if featured_poster %}
+            <img src="{{ url_for('static', filename=featured_poster) }}" alt="{{ featured.title }} poster" class="featured-poster-img">
             {% else %}
-            <a href="{{ url_for('reviews.create') }}" class="btn-primary">Post Your First Review</a>
+            <div class="featured-poster-placeholder">
+                <span class="poster-icon">{% if featured.category == 'movie' %}🎬{% else %}🎮{% endif %}</span>
+                <span class="placeholder-label">Poster coming soon</span>
+            </div>
             {% endif %}
         </div>
+
+        <!-- Review content -->
+        <div class="featured-body">
+            <div class="featured-title-row">
+                <h3 class="featured-title">{{ featured.title }}</h3>
+            </div>
+            <div class="review-rating">
+                {{ featured.rating|star_rating }}
+                <span class="rating-number">({{ featured.rating }}/5)</span>
+            </div>
+            <p class="featured-excerpt">{{ featured.review_text|truncate_text(200) }}</p>
+            <div class="review-meta">
+                <span class="review-author">by {{ featured.username }}</span>
+                <span class="review-date">{{ featured.review_date|format_date }}</span>
+            </div>
+            <div class="featured-actions">
+                <a href="{{ url_for('reviews.view', review_id=featured.id) }}" class="btn-primary">Read Full Review</a>
+                {% if featured.review_count > 1 %}
+                <a href="{{ url_for('reviews.by_title', title=featured.title) }}" class="btn-secondary">
+                    See All {{ featured.review_count }} Reviews →
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<div class="empty-state">
+    <h2>No reviews yet</h2>
+    <p>Be the first to post a review!</p>
+    {% if not session.user_id %}
+    <a href="{{ url_for('auth.register') }}" class="btn-primary">Register to Post Review</a>
+    {% else %}
+    <a href="{{ url_for('reviews.create') }}" class="btn-primary">Post Your First Review</a>
     {% endif %}
 </div>
+{% endif %}
 
-{% if not session.user_id and reviews %}
+{% if not session.user_id and collection %}
 <div class="cta-section">
     <h3>Want to share your opinion?</h3>
     <p>Create a free account to post your own reviews!</p>

@@ -5,6 +5,7 @@ Movie & Game Review PWA
 
 from flask import Flask, render_template, session
 import config
+import os
 from routes.auth import auth_bp
 from routes.reviews import reviews_bp
 from routes.main import main_bp
@@ -65,6 +66,26 @@ def truncate_text(text, length=150):
     if len(text) <= length:
         return text
     return text[:length].rsplit(' ', 1)[0] + '...'
+
+@app.template_filter('poster_path')
+def poster_path(title):
+    """
+    Given a game/movie title, return the static path to its poster image.
+    Checks for .png first, then .jpg/.jpeg. Returns None if no poster exists.
+    """
+    # Build the base filename: lowercase, spaces→underscores, strip : and '
+    filename = (
+        title.lower()
+             .replace(' ', '_')
+             .replace(':', '')
+             .replace("'", '')
+    )
+    posters_dir = os.path.join(app.static_folder, 'images', 'posters')
+    for ext in ('png', 'jpg', 'jpeg'):
+        if os.path.exists(os.path.join(posters_dir, f'{filename}.{ext}')):
+            return f'images/posters/{filename}.{ext}'
+    return None
+
 
 @app.template_filter('format_date')
 def format_date(date_string):
